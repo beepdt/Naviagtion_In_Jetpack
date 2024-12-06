@@ -7,11 +7,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontStyle
@@ -21,8 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun FirstScreen(navigationToSecondScreen:(String)->Unit){
-    val myName = remember { mutableStateOf("") }
+fun ThirdScreen(navigateToFirstScreen: ()->Unit){
 
     Column(
         modifier = Modifier
@@ -32,7 +28,7 @@ fun FirstScreen(navigationToSecondScreen:(String)->Unit){
         horizontalAlignment = Alignment.CenterHorizontally
     )
     {
-        Text(text = "This is the first screen",
+        Text(text = "This is the third screen",
             fontSize = 32.sp,
             fontWeight = FontWeight.Bold,
             fontStyle = FontStyle.Italic
@@ -40,20 +36,18 @@ fun FirstScreen(navigationToSecondScreen:(String)->Unit){
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        OutlinedTextField(value = myName.value, onValueChange = {
-            myName.value = it
-        })
 
-        Button(onClick = { navigationToSecondScreen(myName.value) },
+
+        Button(onClick = { navigateToFirstScreen() },
             modifier = Modifier.padding(16.dp)
         ) {
-            Text(text = "Second Screen")
+            Text(text = "First Screen")
         }
     }
 }
 
 @Preview(showBackground = true)
 @Composable
-fun FirstPreview(){
-    FirstScreen({})
+fun ThirdPreview(){
+    ThirdScreen({})
 }

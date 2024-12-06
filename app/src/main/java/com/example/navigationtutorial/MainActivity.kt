@@ -35,15 +35,28 @@ class MainActivity : ComponentActivity() {
 fun MyApp(){
     val navController = rememberNavController()
 
-    NavHost(navController = navController, startDestination = "first"){
-        composable("first"){
-            FirstScreen {
-                navController.navigate("second")
+    NavHost(
+        navController = navController,
+        startDestination = "first"
+    )
+    {
+        composable("first")
+        {
+            FirstScreen {myName->
+                navController.navigate("second/$myName")
             }
         }
-        composable("second") {
-            SecondScreen {
-                navController.navigate(route = "first")
+        composable("second/{myName}")
+        {val name = it.arguments?.getString("myName")?:"no name"
+            SecondScreen(name,
+                navigateToFirstScreen = { navController.navigate("first") },
+                navigateToThirdScreen = {navController.navigate("third")}
+            )
+        }
+        composable("third")
+        {
+            ThirdScreen {
+                navController.navigate("first")
             }
         }
 
