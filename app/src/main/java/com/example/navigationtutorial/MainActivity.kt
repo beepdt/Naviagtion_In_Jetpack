@@ -42,13 +42,17 @@ fun MyApp(){
     {
         composable("first")
         {
-            FirstScreen {myName->
-                navController.navigate("second/$myName")
+            FirstScreen {
+
+                age,myName->
+                navController.navigate("second/$myName/$age")
             }
         }
-        composable("second/{myName}")
-        {val name = it.arguments?.getString("myName")?:"no name"
-            SecondScreen(name,
+        composable("second/{myName}/{age}")
+        {
+            val age = it.arguments?.getString("age")?:"no age"
+            val name = it.arguments?.getString("myName")?:"no name"
+            SecondScreen(age,name,
                 navigateToFirstScreen = { navController.navigate("first") },
                 navigateToThirdScreen = {navController.navigate("third")}
             )
